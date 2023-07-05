@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minha Página</title>
+    <style>
+       
+        .container{
+            width: 98vw;
+            height: 90vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            
+            flex-wrap: wrap; 
+        }
+        .card{
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+            border-radius: 20%;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Partidos da camara</h1>
+    <div class="container">
+        {% for registro in dados %}
+
+        <div class="card">
+            <img src="{{ registro[3] }}" alt="">
+            <p>{{ registro[2] }} </p>
+
+        </div>
+
+   
+        <!-- <tr>
+            <td>{{ registro[0] }}</td>
+            <td>{{ registro[1] }}</td>
+            <td>{{ registro[2] }}</td>
+            <td>{{ registro[3] }}</td>
+        </tr> -->
+        {% endfor %}
+    </div>
+   
+    
+    
+    
+    
+
+
+        </tbody>
+    </table>
+</body>
+</html>
