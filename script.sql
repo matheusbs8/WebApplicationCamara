@@ -3,16 +3,17 @@
     CREATE TABLE  Partido (
         id INTEGER PRIMARY KEY,
         Sigla varchar(50),
-        Nome varchar(50),
+        NomePartido varchar(50),
         Logo varchar(300)
     );
 
     CREATE TABLE Deputado (
         id INTEGER PRIMARY KEY,
-        Nome varchar(50),
-        Cpf char(11),
-        Sexo char(1),
+        NomeDeputado varchar(50),
+        Cpf varchar(12),
+        Sexo varchar(2),
         Foto varchar(300),
+        Uf varchar(10),
         fk_Partido_id INTEGER,
         FOREIGN KEY (fk_Partido_id) REFERENCES Partido (id) ON DELETE CASCADE
     );
