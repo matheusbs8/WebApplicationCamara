@@ -6,17 +6,27 @@ def inserir_registros():
     conexao = sqlite3.connect('database.db')
     cursor = conexao.cursor()
 
-    url = 'https://dadosabertos.camara.leg.br/api/v2/partidos?itens=100&ordem=ASC&ordenarPor=sigla'
+    url = 'https://dadosabertos.camara.leg.br/api/v2/partidos?dataInicio=2020-01-01&itens=100&ordem=ASC&ordenarPor=sigla'
     response = requests.get(url)
     dados = response.json()
-
+    erro=0
     for partido in dados['dados']:
         sigla_partido = partido['sigla']
         nome_partido = partido['nome']
         url = partido['uri']
+        url_partido=""
         response = requests.get(url)
-        dados1 = response.json()
-        url_partido= dados1['dados']['urlLogo']
+        if response.status_code == 200:
+            try:
+                dados1 = response.json()
+                url_partido= dados1['dados']['urlLogo']
+
+        # Restante do código para processar os dados
+            except json.decoder.JSONDecodeError as e:
+                erro=erro+1
+        else:
+             erro=erro+1
+        
         cursor.execute("INSERT INTO Partido (NomePartido, Sigla, Logo) VALUES ( ?, ?, ?)", (nome_partido, sigla_partido,  url_partido))        
 
 
@@ -52,7 +62,18 @@ def inserir_registros():
             partido_id = result[0]
         cursor.execute("INSERT INTO Deputado (NomeDeputado, Foto, Uf, Sexo, Cpf, fk_Partido_id) VALUES (?, ?, ?, ?, ?, ?)", (nome_deputado,  url_deputado, uF_deputado, sexo, cpf, partido_id))
 
-    
+    # url = 'https://dadosabertos.camara.leg.br/api/v2/eventos?dataInicio=2023-01-01&itens=2000&ordem=ASC&ordenarPor=dataHoraInicio'
+    # response = requests.get(url)
+    # dados = response.json()
+
+    # for evento in dados['dados']:
+    #     sigla_partido = partido['sigla']
+    #     nome_partido = partido['nome']
+    #     url = partido['uri']
+    #     response = requests.get(url)
+    #     dados1 = response.json()
+    #     url_partido= dados1['dados']['urlLogo']
+    #     cursor.execute("INSERT INTO Partido (NomePartido, Sigla, Logo) VALUES ( ?, ?, ?)", (nome_partido, sigla_partido,  url_partido))    
 
     # Salvar as alterações
     conexao.commit()

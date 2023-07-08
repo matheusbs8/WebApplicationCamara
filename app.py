@@ -25,7 +25,7 @@ inserir_registros()
 def obter_dados():
     connection = sqlite3.connect('database.db')
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM partido")
+    cursor.execute("SELECT distinct NomePartido, Logo, Sigla  FROM partido")
     dados = cursor.fetchall()
     connection.close()
 
