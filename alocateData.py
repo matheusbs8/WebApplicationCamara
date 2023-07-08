@@ -34,11 +34,13 @@ def inserir_registros():
     response = requests.get(url)
     dados = response.json()
     erro=0
+    idDeputado=0
     for deputado in dados['dados']:
         nome_deputado = deputado['nome']
         url_deputado = deputado['urlFoto']
         uF_deputado = deputado['siglaUf']
         sigla=deputado['siglaPartido']
+        idExterno=deputado['id']
         cpf=''
         sexo=''
         partido_id = 1
@@ -61,6 +63,18 @@ def inserir_registros():
         if result:
             partido_id = result[0]
         cursor.execute("INSERT INTO Deputado (NomeDeputado, Foto, Uf, Sexo, Cpf, fk_Partido_id) VALUES (?, ?, ?, ?, ?, ?)", (nome_deputado,  url_deputado, uF_deputado, sexo, cpf, partido_id))
+
+        urlG = 'https://dadosabertos.camara.leg.br/api/v2/deputados/'+str(idExterno)+'/despesas?ordem=ASC&ordenarPor=ano'
+        idDeputado=idDeputado+1
+        responseG = requests.get(urlG)
+        dadosG = responseG.json()
+        #print(dadosG)
+        for gasto in dadosG['dados']:
+            tipo_gasto=gasto['tipoDespesa']
+            valorLiquido=gasto['valorLiquido']
+            ano_gasto=gasto['ano']
+            mes_gasto=gasto['mes']
+            cursor.execute("INSERT INTO Gastos (Tipo, ValorLiquido, ano, mes, fk_Deputado_id) VALUES (?, ?, ?, ?, ?)", (tipo_gasto,  valorLiquido, ano_gasto, mes_gasto, idDeputado))
 
     # url = 'https://dadosabertos.camara.leg.br/api/v2/eventos?dataInicio=2023-01-01&itens=2000&ordem=ASC&ordenarPor=dataHoraInicio'
     # response = requests.get(url)
