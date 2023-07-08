@@ -58,14 +58,14 @@ def inserir_registros():
                 erro=erro+1
         else:
              erro=erro+1
-        cursor.execute("SELECT id FROM Partido WHERE Sigla = ?", (sigla,))
+        cursor.execute("SELECT idPartido FROM Partido WHERE Sigla = ?", (sigla,))
         result = cursor.fetchone()
         if result:
             partido_id = result[0]
-        cursor.execute("INSERT INTO Deputado (NomeDeputado, Foto, Uf, Sexo, Cpf, fk_Partido_id) VALUES (?, ?, ?, ?, ?, ?)", (nome_deputado,  url_deputado, uF_deputado, sexo, cpf, partido_id))
+        cursor.execute("INSERT INTO Deputado (idDeputado,NomeDeputado, Foto, Uf, Sexo, Cpf, fk_Partido_id) VALUES (?, ?, ?, ?, ?, ?, ?)", (idExterno,nome_deputado,  url_deputado, uF_deputado, sexo, cpf, partido_id))
 
         urlG = 'https://dadosabertos.camara.leg.br/api/v2/deputados/'+str(idExterno)+'/despesas?ordem=ASC&ordenarPor=ano'
-        idDeputado=idDeputado+1
+        idDeputado=deputado['id']
         responseG = requests.get(urlG)
         dadosG = responseG.json()
         #print(dadosG)
@@ -76,19 +76,23 @@ def inserir_registros():
             mes_gasto=gasto['mes']
             cursor.execute("INSERT INTO Gastos (Tipo, ValorLiquido, ano, mes, fk_Deputado_id) VALUES (?, ?, ?, ?, ?)", (tipo_gasto,  valorLiquido, ano_gasto, mes_gasto, idDeputado))
 
-    # url = 'https://dadosabertos.camara.leg.br/api/v2/eventos?dataInicio=2023-01-01&itens=2000&ordem=ASC&ordenarPor=dataHoraInicio'
-    # response = requests.get(url)
-    # dados = response.json()
-
-    # for evento in dados['dados']:
-    #     sigla_partido = partido['sigla']
-    #     nome_partido = partido['nome']
-    #     url = partido['uri']
-    #     response = requests.get(url)
-    #     dados1 = response.json()
-    #     url_partido= dados1['dados']['urlLogo']
-    #     cursor.execute("INSERT INTO Partido (NomePartido, Sigla, Logo) VALUES ( ?, ?, ?)", (nome_partido, sigla_partido,  url_partido))    
-
+    url = 'https://dadosabertos.camara.leg.br/api/v2/eventos?dataInicio=2023-01-01&ordem=ASC&ordenarPor=dataHoraInicio&itens=300'
+    response = requests.get(url)
+    dados = response.json()
+    idEvento=0
+    for evento in dados['dados']:
+        idEvento=idEvento+1
+        inicio = evento['dataHoraInicio']
+        descricao = evento['descricao']
+        fim = evento['dataHoraFim']
+        cursor.execute("INSERT INTO Evento (dataHoraIncio,dataHoraFinal,Descricao) VALUES ( ?, ?, ?)", (inicio, fim, descricao))
+        urlG='https://dadosabertos.camara.leg.br/api/v2/eventos/'+str(evento['id'])+'/deputados'    
+        responseG = requests.get(urlG)
+        dadosG = responseG.json()
+        for frequenta in dadosG['dados']:
+            
+            cursor.execute("INSERT INTO Frequenta (fk_Evento_id, fk_Deputado_id) VALUES (?, ?)", (idEvento, frequenta['id']))
+        
     # Salvar as alterações
     conexao.commit()
 
