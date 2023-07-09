@@ -1,6 +1,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Deputado from './telas/telaDeputado'
+import Home from './page'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={"bg-white text-gray-900"}>{children}</body>
+      <body className={"bg-white text-gray-900"}><Home/></body>
     </html>
   )
 }

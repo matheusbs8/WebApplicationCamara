@@ -44,19 +44,32 @@ export default function Deputado() {
 
   return (
     <div className="h-screen ">
-        <div className="bg-zinc-950 w-96 h-96">
-            <img src={dep.Foto}/>
-            <div className="">
-                <h1>{dep.NomeDeputado}</h1>
-                <h2>{dep.Cpf}</h2>
-                <h2>{dep.Sexo}</h2>
-                <h2>{dep.Uf}</h2>
-                <h2>Partido: </h2>
-                <h2>Gastos: </h2>
+        <div className="bg-slate-600 flex m-10 rounded-2xl" >
+            <img src={dep.Foto} className="rounded-l-2xl"/>
+            <div className="ml-5 mt-5">
+                <h1 className="text-6xl mb-3">Nome: {dep.NomeDeputado}</h1>
+                <h2 className="text-2xl mb-3">CPF: {dep.Cpf}</h2>
+                <h2 className="text-2xl mb-3">Sexo: {dep.Sexo}</h2>
+                <h2 className="text-2xl mb-3">Estado: {dep.Uf}</h2>
+                <h2 className="text-2xl mb-3">Partido: </h2>
+                <h2 className="text-2xl mb-3">Gastos: </h2>
             </div>
         </div>
 
-      
+        <table className="table-auto">
+          <thead>
+            <tr>
+              <th>Tipo de Gasto</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+            <tbody>
+              <tr>
+                <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
+                <td>Malcolm Lockyer</td>
+              </tr>
+            </tbody>
+        </table>
     </div>
   )
 }
