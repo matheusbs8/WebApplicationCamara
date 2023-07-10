@@ -1,8 +1,6 @@
 import Home from '@/pages/telas/telaDeputados'
-import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Parties from '@/pages/telas/telaPartidos'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
