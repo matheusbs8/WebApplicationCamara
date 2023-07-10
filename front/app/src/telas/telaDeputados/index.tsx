@@ -6,6 +6,7 @@ import deputadoServices from "../../services/deputadoServices";
 import Header from "../../components/Header";
 import { type } from "os";
 import { data } from "autoprefixer";
+import Link from "next/link";
 
 interface Deputado {
   Cpf: string
@@ -40,8 +41,7 @@ export default function Home() {
 
   return (
     <div className="h-screen ">
-      <Header/>
-
+     <Header/>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       
         {deputados?.map((deputado) => (
