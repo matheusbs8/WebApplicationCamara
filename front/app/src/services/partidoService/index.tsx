@@ -19,4 +19,14 @@ export default{
             console.log(e);
         }
     },
+
+    async obterGastosPartidos(){
+        try{
+            const response = api.get(`/partidoGastos`);
+            return response;
+        }
+        catch (e){
+            console.log(e);
+        }
+    },
 };

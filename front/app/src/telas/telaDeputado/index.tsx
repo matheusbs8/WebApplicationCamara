@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import deputadoServices from "../../services/deputadoServices";
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 
 interface Deputado {
@@ -86,6 +87,7 @@ export default function Deputado({Cpf, Foto, NomeDeputado, Sexo, Uf, Sigla, fk_P
               </tbody>
           </table>
         </div>
+
     </div>
   )
 }
