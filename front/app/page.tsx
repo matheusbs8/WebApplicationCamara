@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import Deputado from './src/telas/telaDeputado'
 import Home from './src/telas/telaDeputados/index'
 import GraficoGastos from './src/telas/telaGraficoGastos'
+import MulheresPartidos from './src/telas/telaGraficoMulheres'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={"bg-slate-200 text-gray-900"}><GraficoGastos/></body>
+      <body className={"bg-slate-200 text-gray-900"}><MulheresPartidos/></body>
     </html>
   )
 }
