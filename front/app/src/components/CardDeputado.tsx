@@ -1,4 +1,4 @@
-import partidoService from "@/src/services/partidoService"
+import partidoService from "@/app/src/services/partidoService"
 import { url } from "inspector"
 import { useEffect, useState } from "react"
 
