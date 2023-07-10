@@ -25,6 +25,7 @@ def dict_factory(cursor, row):
 @app.route('/partido/<id>', methods=['GET'])
 def obter_partido(id):
     connection = sqlite3.connect('database.db')
+    connection.row_factory = dict_factory
     cursor = connection.cursor()
     cursor.execute("SELECT Sigla FROM Partido WHERE idPartido = ?", (id,))
     dados = cursor.fetchall()
@@ -33,6 +34,27 @@ def obter_partido(id):
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+@app.route('/partidos', methods=['GET'])
+def obter_partidos():
+    connection = sqlite3.connect('database.db')
+    connection.row_factory = dict_factory
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM Partido")
+    dados = cursor.fetchall()
+    connection.close()
+    response = jsonify(dados)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/deputado/<id>', methods=['GET'])
+def obter_deputado(id):
+    connection = sqlite3.connect('database.db')
+    connection.row_factory = dict_factory
+    res = connection.execute("SELECT * FROM deputado WHERE idDeputado = ?", (id, ))
+    dados = res.fetchall()
+    response = jsonify(dados)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route('/deputados', methods=['GET'])
 def obter_deputados():
