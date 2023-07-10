@@ -10,4 +10,13 @@ export default{
             console.log(e);
         }
     },
+    async obterPartidos(){
+        try{
+            const response = api.get(`/partidos`);
+            return response;
+        }
+        catch (e){
+            console.log(e);
+        }
+    },
 };

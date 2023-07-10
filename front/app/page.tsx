@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={"bg-white text-gray-900"}><Home/></body>
+      <body className={"bg-slate-200 text-gray-900"}><Deputado Cpf={'99770962104'} Foto={'https://www.camara.leg.br/internet/deputado/bandep/220593.jpg'} NomeDeputado={'Abilio Brunini'} Sexo={'M'} Uf={'MT'} Sigla={'PL'} fk_Partido_id={11} id={220593}/></body>
     </html>
   )
 }
