@@ -1,10 +1,8 @@
+import Home from '@/pages/telas/telaDeputados'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Deputado from './src/telas/telaDeputado'
-import Home from './src/telas/telaDeputados/index'
-import Parties from './src/telas/telaPartidos'
-
+import Parties from '@/pages/telas/telaPartidos'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -18,9 +16,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">      
-    <body className={"bg-white text-gray-900"}><Parties/></body>
-
+    <html lang="en">
+      <Home/>
     </html>
   )
 }

@@ -1,4 +1,4 @@
-import partidoService from "@/app/src/services/partidoService"
+import partidoService from "../services/partidoService"
 import { url } from "inspector"
 import { useEffect, useState } from "react"
 
@@ -11,6 +11,7 @@ interface Deputado {
     fk_Partido_id: number
     id: number
   }
+  
 
 function CardDeputado({Foto, NomeDeputado, Sexo, Uf, fk_Partido_id, id, Cpf }:Deputado) {
     
@@ -18,10 +19,10 @@ function CardDeputado({Foto, NomeDeputado, Sexo, Uf, fk_Partido_id, id, Cpf }:De
 
     useEffect(() => {
         partidoService.obterPartido(fk_Partido_id).then(response => {
-          let dados = response?.data
+          let dados = response?.data[0].Sigla
           console.log(dados)
           setSigla(dados)
-          console.log(sigla)
+          //console.log(sigla)
   
         })
         .catch(e => {
