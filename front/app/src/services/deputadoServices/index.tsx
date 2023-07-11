@@ -1,5 +1,3 @@
-import api from "../api";
-
 
 export default{
     async obterDeputados(){

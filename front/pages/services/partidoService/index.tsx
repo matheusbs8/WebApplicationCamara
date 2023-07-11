@@ -1,3 +1,5 @@
+import api from "../api";
+
 
 export default{
     async obterPartido(id: number){
@@ -36,4 +38,23 @@ export default{
             console.log(e);
         }
     },
+    async deputadoGastoPartido(){
+        try{
+            const response = api.get(`/deputadoGastoPartido`);
+            return response;
+        }
+        catch (e){
+            console.log(e);
+        }
+    },
+    async partidosPresencas(){
+        try{
+            const response = api.get(`/partidosPresencas`);
+            return response;
+        }
+        catch (e){
+            console.log(e);
+        }
+    },
+   
 };
