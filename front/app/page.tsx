@@ -1,4 +1,6 @@
-import Home from '@/pages/telas/telaDeputados'
+import Header from '@/pages/components/Header'
+import Navbar from '@/pages/components/Header'
+import Home from '@/pages/telas/Deputados'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
@@ -15,6 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Header/>
       <Home/>
     </html>
   )

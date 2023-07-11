@@ -27,28 +27,21 @@ export default function Home() {
       deputadoServices.obterDeputados().then(response => {
         let dados = response?.data
         setDeputados(dados)
-        //console.log(dados[1])
-        //console.log(dados[1]['Cpf']
         console.log(deputados)
 
       })
       .catch(e => {
         console.log(e)
       })
-  
   }, [!deputados])
-
 
   return (
     <div className="h-screen ">
-     <Header/>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       
         {deputados?.map((deputado) => (
           <CardDeputado Foto={deputado['Foto']} Sexo={deputado['Sexo']} Uf={deputado['Uf']} NomeDeputado={deputado['NomeDeputado']} Cpf={deputado['Cpf']} fk_Partido_id={deputado['fk_Partido_id']} id={deputado['id']} />
         ))}
-        
-
       </div>
     </div>
   )
