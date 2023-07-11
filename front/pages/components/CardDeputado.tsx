@@ -39,7 +39,7 @@ function CardDeputado({Foto, NomeDeputado, Sexo, Uf, fk_Partido_id, id, Cpf }:De
 
 
   return(
-      <div onClick={()=>{router.push(`Deputado/${id}`)}} className="bg-gray-900 w-96 h-58 text-red-50 ml-10 mt-10 flex align-center rounded-2xl">
+      <div onClick={()=>{router.push(`/telas/Deputado/${id}`)}} className="bg-gray-900 w-96 h-58 text-red-50 ml-10 mt-10 flex align-center rounded-2xl">
           <img src={Foto} className="h-44 rounded-l-2xl ml"/>
           <div className="flex-1 flex-col space-y-4 mt-2 ml-2">
               <h1 className="text-2xl">{NomeDeputado}</h1>
