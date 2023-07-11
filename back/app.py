@@ -80,7 +80,7 @@ def obter_gastos_partido():
     connection = sqlite3.connect('database.db')
     connection.row_factory = dict_factory
     cursor = connection.cursor()
-    cursor.execute("SELECT Partido.Sigla, count(DISTINCT Deputado.idDeputado) as Num_Deputados, sum(Gastos.ValorLiquido) as Gasto_Total, (sum(Gastos.ValorLiquido)/count(DISTINCT Deputado.idDeputado)) as Gasto_p_Deputado FROM Gastos RIGHT JOIN Deputado ON Gastos.fk_Deputado_id = Deputado.idDeputado INNER JOIN Partido ON Deputado.fk_Partido_id = Partido.idPartido GROUP BY idPartido ORDER BY Gasto_p_Deputado")
+    cursor.execute("SELECT Partido.Sigla, count(DISTINCT Deputado.idDeputado) as Num_Deputados, sum(Gastos.ValorLiquido) as Gasto_Total, (sum(Gastos.ValorLiquido)/count(DISTINCT Deputado.idDeputado)) as Gasto_p_Deputado FROM Deputado LEFT JOIN Gastos ON Gastos.fk_Deputado_id = Deputado.idDeputado INNER JOIN Partido ON Deputado.fk_Partido_id = Partido.idPartido GROUP BY idPartido ORDER BY Gasto_p_Deputado")
     dados = cursor.fetchall()
     connection.close()
     response = jsonify(dados)
@@ -92,7 +92,7 @@ def porcentagemMulheresPartidos():
     connection = sqlite3.connect('database.db')
     connection.row_factory = dict_factory
     cursor = connection.cursor()
-    cursor.execute("SELECT Sigla, coalesce(Dep_Mulheres.Num_Mulheres, 0) as Num_Dep_Mulheres, Dep.Num_Deputados as Num_Dep, round(coalesce(cast(Dep_Mulheres.Num_Mulheres as FLOAT)/Dep.Num_Deputados, 0), 2) as F_M FROM ((SELECT Sigla, count(DISTINCT idDeputado) as Num_Mulheres FROM Deputado INNER JOIN Partido ON Deputado.fk_Partido_id = Partido.idPartido WHERE Deputado.Sexo = 'F'GROUP BY Sigla) as Dep_Mulheres FULL OUTER NATURAL JOIN (SELECT Sigla, count(DISTINCT idDeputado) as Num_Deputados FROM Deputado INNER JOIN Partido ON Deputado.fk_Partido_id = Partido.idPartido GROUP BY Sigla) as Dep)GROUP BY Sigla ORDER BY F_M DESC")
+    cursor.execute("SELECT Dep_Mulheres.Sigla, COALESCE(Dep_Mulheres.Num_Mulheres, 0) as Num_Dep_Mulheres, Dep.Num_Deputados as Num_Dep, ROUND(COALESCE(CAST(Dep_Mulheres.Num_Mulheres as FLOAT)/Dep.Num_Deputados, 0), 2) as F_M FROM (SELECT Partido.Sigla, COUNT(DISTINCT idDeputado) as Num_Mulheres FROM Deputado INNER JOIN Partido ON Deputado.fk_Partido_id = Partido.idPartido WHERE Deputado.Sexo = 'F' GROUP BY Partido.Sigla) as Dep_Mulheres LEFT JOIN (SELECT Partido.Sigla, COUNT(DISTINCT idDeputado) as Num_Deputados FROM Deputado INNER JOIN Partido ON Deputado.fk_Partido_id = Partido.idPartido GROUP BY Partido.Sigla) as Dep ON Dep_Mulheres.Sigla = Dep.Sigla GROUP BY Dep_Mulheres.Sigla ORDER BY F_M DESC")
     dados = cursor.fetchall()
     connection.close()
     response = jsonify(dados)
