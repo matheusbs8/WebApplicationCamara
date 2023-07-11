@@ -16,7 +16,7 @@ interface Deputado {
 }
 
 
-export default function Home() {
+export default function Deputados() {
 
   const [deputados, setDeputados] = useState<Deputado[]>([])
   const [searchValue, setSearchValue] = useState('');
