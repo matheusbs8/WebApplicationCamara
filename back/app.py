@@ -115,7 +115,7 @@ def deputadoGastoPartido():
 def deputadosPartidosEventos():
     connection = sqlite3.connect('database.db')
     connection.row_factory = dict_factory
-    res = connection.execute("SELECT idDeputado, NomeDeputado, Sigla, Num_Presencas FROM Partido INNER JOIN (SELECT idDeputado, NomeDeputado, count(DISTINCT idEvento) as Num_Presencas, fk_Partido_id FROM Deputado LEFT JOIN Frequenta ON Deputado.idDeputado = Frequenta.fk_Deputado_id LEFT JOIN Evento ON Frequenta.fk_Evento_id = Evento.idEvento GROUP BY idDeputado ORDER BY Num_Presencas)ON fk_Partido_id= Partido.idPartido")
+    res = connection.execute("SELECT idDeputado, NomeDeputado, Sigla, Num_Presencas FROM Partido INNER JOIN (SELECT idDeputado, NomeDeputado, count(DISTINCT idEvento) as Num_Presencas, fk_Partido_id FROM Deputado LEFT JOIN Frequenta ON Deputado.idDeputado = Frequenta.fk_Deputado_id LEFT JOIN Evento ON Frequenta.fk_Evento_id = Evento.idEvento GROUP BY idDeputado ORDER BY Num_Presencas DESC) ON fk_Partido_id= Partido.idPartido")
     dados = res.fetchall()
     response = jsonify(dados)
     response.headers.add('Access-Control-Allow-Origin', '*')

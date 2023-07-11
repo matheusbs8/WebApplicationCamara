@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { PureComponent, useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import partidoService from "../../services/partidoService";
 
@@ -11,6 +11,19 @@ interface Gasto {
     Sigla: string
 }
 
+class CustomizedAxisTick extends PureComponent {
+  render() {
+    const { x, y, payload } : any = this.props;
+
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <text x={0} y={5} dy={0} textAnchor="end" fill="#82ca9d" transform="rotate(-90)">
+          {payload.value}
+        </text>
+      </g>
+    );
+  }
+}
 
 
 export default function GraficoGastos(){
@@ -47,15 +60,14 @@ export default function GraficoGastos(){
                                     top: 5,
                                     right: 30,
                                     left: 20,
-                                    bottom: 5,
+                                    bottom: 100,
                                 }}
                             >
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="Sigla" tick={{ fill: '#9882ca' }} tickLine={{ stroke: 'white' }}/>
-                                <YAxis tick={{ fill: '#9882ca' }} tickLine={{ stroke: 'white' }}/>
+                                <XAxis dataKey="Sigla" interval={0} tick={<CustomizedAxisTick />} tickLine={{ stroke: 'white' }}/>
+                                <YAxis tick={{ fill: '#82ca9d' }} tickLine={{ stroke: 'white' }}/>
                                 <Tooltip />
-                                <Legend />
-                                <Bar dataKey="Gasto_Total" fill="#9882ca" />
+                                <Bar dataKey="Gasto_Total" fill="#82ca9d" />
 
                             </BarChart>
                     </ResponsiveContainer>
@@ -73,14 +85,13 @@ export default function GraficoGastos(){
                                     top: 5,
                                     right: 30,
                                     left: 20,
-                                    bottom: 5,
+                                    bottom: 100,
                                 }}
                             >
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="Sigla" tick={{ fill: '#82ca9d' }} tickLine={{ stroke: 'white' }}/>
+                                <XAxis dataKey="Sigla" interval={0} tick={<CustomizedAxisTick />} tickLine={{ stroke: 'white' }}/>
                                 <YAxis tick={{ fill: '#82ca9d' }} tickLine={{ stroke: 'white' }}/>
                                 <Tooltip />
-                                <Legend />
                                 <Bar dataKey="Gasto_p_Deputado" fill="#82ca9d" />
 
                             </BarChart>

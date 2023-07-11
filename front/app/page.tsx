@@ -1,5 +1,4 @@
 import Header from '@/pages/components/Header'
-import Navbar from '@/pages/components/Header'
 import Home from '@/pages/telas/Deputados'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'

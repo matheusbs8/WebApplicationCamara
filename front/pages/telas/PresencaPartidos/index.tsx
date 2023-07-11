@@ -17,7 +17,7 @@ class CustomizedAxisTick extends PureComponent {
   
       return (
         <g transform={`translate(${x},${y})`}>
-          <text x={0} y={5} dy={0} textAnchor="end" fill="#9882ca" transform="rotate(-90)">
+          <text x={0} y={5} dy={0} textAnchor="end" fill="#82ca9d" transform="rotate(-90)">
             {payload.value}
           </text>
         </g>
@@ -45,10 +45,10 @@ export default function PresencasPartidos(){
 
   return (
     <div className="h-screen ">
-        <h1 className="flex justify-center text-4xl mt-10 mb-10">Graficos comparando a quantidade de mulheres por partido</h1>
+        <h1 className="flex justify-center text-4xl mt-10 mb-10">Graficos comparando a presença dos deputados por partido em eventos</h1>
         <div className="flex-col justify-center">
 
-          <h2 className="flex justify-center text-xl mt-10 mb-10">Grafico com a o percentual de mulheres / homens por partidos</h2>
+          <h2 className="flex justify-center text-xl mt-10 mb-10">Grafico com a presença total do partido dividido pela quantidade de deputados</h2>
           <div className="flex justify-center ">
               <div className="w-3/4 h-[700px] p-10 rounded-2xl bg-slate-900 mb-10 ">
                   <ResponsiveContainer >
@@ -69,15 +69,15 @@ export default function PresencasPartidos(){
                               tick={<CustomizedAxisTick />}
                               tickLine={{ stroke: 'white' }}
                           />
-                          <YAxis tick={{ fill: '#9882ca' }} tickLine={{ stroke: 'white' }}/>
+                          <YAxis tick={{ fill: '#82ca9d' }} tickLine={{ stroke: 'white' }}/>
                           <Tooltip />
-                          <Bar dataKey="Pres_por_Dep" fill="#9882ca" />
+                          <Bar dataKey="Pres_por_Dep" fill="#82ca9d" />
                       </BarChart>
                   </ResponsiveContainer>
               </div>
           </div>
 
-          <h2 className="flex justify-center text-xl mt-10 mb-10">Grafico com a o percentual de mulheres / homens por partidos</h2>
+          <h2 className="flex justify-center text-xl mt-10 mb-10">Grafico com a quantidade total de presença</h2>
           <div className="flex justify-center ">
               <div className="w-3/4 h-[700px] p-10 rounded-2xl bg-slate-900 mb-10 ">
                   <ResponsiveContainer >
@@ -98,9 +98,9 @@ export default function PresencasPartidos(){
                               tick={<CustomizedAxisTick />}
                               tickLine={{ stroke: 'white' }}
                           />
-                          <YAxis tick={{ fill: '#9882ca' }} tickLine={{ stroke: 'white' }}/>
+                          <YAxis tick={{ fill: '#82ca9d' }} tickLine={{ stroke: 'white' }}/>
                           <Tooltip />
-                          <Bar dataKey="Total_Presencas" fill="#9882ca" />
+                          <Bar dataKey="Total_Presencas" fill="#82ca9d" />
                       </BarChart>
                   </ResponsiveContainer>
               </div>
