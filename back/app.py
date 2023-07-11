@@ -49,7 +49,6 @@ def obter_partidos():
 @app.route('/deputado/<id>', methods=['GET'])
 def obter_deputado(id):
     connection = sqlite3.connect('database.db')
-    connection.row_factory = dict_factory
     res = connection.execute("SELECT * FROM deputado WHERE idDeputado = ?", (id, ))
     dados = res.fetchall()
     response = jsonify(dados)
