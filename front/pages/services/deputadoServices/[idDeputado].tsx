@@ -10,7 +10,14 @@ export default{
             console.log(e);
         }
     },
-
+    async obterDeputado(id: number){
+        try {
+            const response = api.get(`/deputado/${id}`,);
+            return response;
+        } catch (e) {
+            console.log(e);
+        }
+    },
     async obterGastosDeputado(id: number){
         try {
             const response = api.get(`/gastosDeputado/${id}`);

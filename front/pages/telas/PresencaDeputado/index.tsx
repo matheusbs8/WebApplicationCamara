@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import deputadoServices from "@/pages/services/deputadoServices";
+import deputadoServices from "@/pages/services/deputadoServices/[idDeputado]";
 
 interface DepPresenca {
     idDeputado: number
