@@ -31,12 +31,12 @@ export default function PresencaDeputado(){
 
   return (
     <div className="h-screen ">
-        <h1 className="flex justify-center text-4xl mt-10 mb-10">Graficos comparando os gastos dos partidos</h1>
+        <h1 className="flex justify-center text-4xl mt-10 mb-10">Tabela com presença dos Deputados</h1>
         <div className="flex justify-center">
             <table className="table-fixed border-separate border-spacing-3 border-red-800 bg-slate-900 text-slate-100 rounded-2xl mb-10" >
                 <thead>
                 <tr>
-                    <th className="w-32">NomeDeputado</th>
+                    <th className="w-32">Nome Deputado</th>
                     <th className="w-32">Partido</th>
                     <th className="w-32">Numero de Presenças</th>
                 </tr>

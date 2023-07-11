@@ -1,7 +1,7 @@
 
 
 import deputadoServices from "@/pages/services/deputadoServices/[idDeputado]";
-import partidoService from "@/pages/services/partidoService";
+import partidoService from "@/pages/services/partidoService"
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -22,7 +22,6 @@ interface Gasto {
   mes: number
 }
 
-
 export default function Deputado() {
   const router = useRouter()
 
@@ -32,7 +31,18 @@ export default function Deputado() {
   const [gastos, setGastos] = useState<Gasto[]>([])
   const [gastoVisibilidade, setGastoVisibilidade] = useState(false)
   const [gastoTotal, setGastoTotal] = useState<number>(0)
+ 
   
+  function Sexo(s: string) {
+    if (s === 'M'){
+      return 'Masculino'
+    };
+    if (s === 'F'){
+      return 'Feminino'
+    }
+  }
+
+
   useEffect(() => {
     const {idDeputado} = router.query
     if (idDeputado){
@@ -43,63 +53,66 @@ export default function Deputado() {
   }, [router])
 
   useEffect(() => {
-    if (deputadoId){
-      deputadoServices.obterGastosDeputado(deputadoId).then(response => {
-        let dados = response?.data
-        setGastos(dados)
-        var soma : number = 0
-        gastos.map((gasto) => (
+    if (deputadoId) {
+      deputadoServices.obterGastosDeputado(deputadoId)
+        .then(response => {
+          let dados = response?.data
+          setGastos(dados)
+        })
+        .catch(e => {
+          console.log(e)
+        });
+    }
+  }, [deputadoId])
+
+  useEffect(() => {
+    if (deputadoId) {
+      deputadoServices.obterDeputado(deputadoId).then(response => {
+          let dados = response?.data
+          setDeputado(dados)
+        })
+        .catch(e => {
+          console.log(e)
+        });
+    }
+  }, [deputadoId])
+  
+  useEffect(() => {
+    if (gastos.length > 0) {
+      var soma = 0
+      gastos.map(gasto => {
         soma = soma + gasto.ValorLiquido
-      ))
+      })
       setGastoTotal(soma)
       setGastoVisibilidade(true)
-      })
-      .catch(e => {
-        console.log(e)
-      })
     }
-  })
+  }, [gastos])
   
-  useEffect(() => {
-    if (deputadoId){
-      deputadoServices.obterDeputado(deputadoId).then(response => {
-        let dados = response?.data
-        setDeputado(dados)
-      }).catch(e => {
-        console.log(e)
-      })
-    }
-  } )
-  
-  /*
-  useEffect(() => {
-    if (deputado?.[0][6]){
-      partidoService.obterPartido(deputado?.[0][6]).then(response => {
-        let dados = response?.data[0].Sigla
-        setSigla(dados)
-        console.log(deputado)
-  
-      })
-      .catch(e => {
-        console.log(e)
-      })
-    }
-  })
-
-  
-  */
+ useEffect(() => {
+   if (deputado?.[0][6]){
+     partidoService.obterPartido(deputado?.[0][6]).then(response => {
+       let dados = response?.data[0].Sigla
+       setSigla(dados)
+       console.log(deputado)
+       
+     })
+     .catch(e => {
+       console.log(e)
+     })
+   }
+ }, [deputado])
 
   return (
     <div className="h-screen ">
         <div className="bg-slate-600 flex m-10 rounded-2xl" >
-            {/*<img src={} className="rounded-l-2xl"/>*/}
+            <img src={deputado?.[0][4]} className="rounded-l-2xl"/>
             <div className="ml-5 mt-5">
-                <h1 className="text-6xl mb-3">Nome: {deputado?.NomeDeputado}</h1>
-                <h2 className="text-2xl mb-3">CPF: {}</h2>
-                <h2 className="text-2xl mb-3">Sexo: {}</h2>
-                <h2 className="text-2xl mb-3">Estado: {}</h2>
+                <h1 className="text-6xl mb-3">Nome: {deputado?.[0][1]}</h1>
+                <h2 className="text-2xl mb-3">CPF: {deputado?.[0][2]}</h2>
+                <h2 className="text-2xl mb-3">Sexo: {Sexo(deputado?.[0][3])}</h2>
+                <h2 className="text-2xl mb-3">Estado: {deputado?.[0][5]}</h2>
                 <h2 className="text-2xl mb-3">Partido: {sigla}</h2>
-                <h2 className="text-2xl mb-3">Gastos: {(Math.round(gastoTotal * 100) / 100).toFixed(2)}</h2>
+                <h2 className="text-2xl mb-3">Gastos: R$ {(Math.round(gastoTotal * 100) / 100).toFixed(2)}</h2>
             </div>
         </div>
 

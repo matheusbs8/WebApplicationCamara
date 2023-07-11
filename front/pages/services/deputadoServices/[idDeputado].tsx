@@ -10,6 +10,14 @@ export default{
             console.log(e);
         }
     },
+    async obterDeputadosPartido(idPart: number){
+        try {
+            const response = api.get(`/deputadosPartido/${idPart}`,);
+            return response;
+        } catch (e) {
+            console.log(e);
+        }
+    },
     async obterDeputado(id: number){
         try {
             const response = api.get(`/deputado/${id}`,);
