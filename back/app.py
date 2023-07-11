@@ -88,6 +88,25 @@ def obter_gastosDeputado(id):
 
 
     
+@app.route('/gastosDeputado/<id>', methods=['GET'])
+def obter_gastosDeputado(id):
+    connection = sqlite3.connect('database.db')
+    connection.row_factory = dict_factory
+    res = connection.execute("SELECT ano, mes, ValorLiquido, Tipo FROM deputado INNER JOIN Gastos on Deputado.idDeputado=Gastos.fk_Deputado_id WHERE idDeputado = ?", (id, ))
+    dados = res.fetchall()
+    response = jsonify(dados)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/gastoTotalDeputado/<id>', methods=['GET'])
+def obter_gastoTotalDeputado(id):
+    connection = sqlite3.connect('database.db')
+    res = connection.execute("SELECT sum(ValorLiquido) FROM deputado INNER JOIN Gastos on Deputado.idDeputado=Gastos.fk_Deputado_id WHERE idDeputado = ?", (id, ))
+    dados = res.fetchall()
+    response = jsonify(dados)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+    
 @app.route('/partidoGastos', methods=['GET'])
 def obter_gastos_partido():
     connection = sqlite3.connect('database.db')
