@@ -1,7 +1,7 @@
 
 
 import deputadoServices from "@/pages/services/deputadoServices/[idDeputado]";
-import partidoService from "@/pages/services/partidoService";
+import partidoService from "@/pages/services/partidoService"
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
