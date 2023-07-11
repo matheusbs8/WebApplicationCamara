@@ -65,6 +65,17 @@ def obter_deputados():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+
+@app.route('/deputadosPartido/<id>', methods=['GET'])
+def obter_deputadosPartido(id):
+    connection = sqlite3.connect('database.db')
+    connection.row_factory = dict_factory
+    res = connection.execute("SELECT * FROM deputado WHERE FK_Partido_id = ?",(id,))
+    dados = res.fetchall()
+    response = jsonify(dados)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
 @app.route('/gastosDeputado/<id>', methods=['GET'])
 def obter_gastosDeputado(id):
     connection = sqlite3.connect('database.db')
@@ -74,6 +85,8 @@ def obter_gastosDeputado(id):
     response = jsonify(dados)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+
+
     
 @app.route('/partidoGastos', methods=['GET'])
 def obter_gastos_partido():
