@@ -144,4 +144,4 @@ def obter_dados():
     return render_template('pagina.html', dados=dados)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(threaded=True)
